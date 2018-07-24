@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "module": "commonjs",
+    "rootDir": "./src",
+    "noEmit": true,
+    "pretty": true,
+    "allowJs": true,
+    "checkJs": true,
+    "moduleResolution": "node"
+  },
+  "include": ["src/**/*.js"],
+  "exclude": ["node_modules"]
+}

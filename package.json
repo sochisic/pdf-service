@@ -1,0 +1,123 @@
+{
+  "name": "prassi-api-gateway",
+  "version": "1.0.0-alpha.0",
+  "description": "A minimal and fast 🐨  API gateway, based on Fastify",
+  "repository": {
+    "type": "git",
+    "url": "https://www.example.com"
+  },
+  "keywords": [
+    "fastify",
+    "rest",
+    "api"
+  ],
+  "author": "Elever Srl",
+  "license": "ISC",
+  "contributors": [
+    {
+      "name": "Unknown"
+    }
+  ],
+  "bugs": {
+    "url": "https://www.example.com"
+  },
+  "homepage": "https://www.example.com",
+  "engines": {
+    "node": ">= 8.10.0"
+  },
+  "main": "/src/index.js",
+  "scripts": {
+    "lint": "eslint 'src/**/*.js' && tsc -p tsconfig.json",
+    "qa": "LOG=fatal nsp check && npm run lint && jest --coverage --no-cache --runInBand --bail --ci",
+    "danger": "danger",
+    "coverage": "LOG=fatal jest --coverage",
+    "testing": "LOG=fatal jest --watch",
+    "test": "LOG=fatal jest --coverage",
+    "start": "node ./src/index.js",
+    "dev": "nodemon ./src/index.js",
+    "debug": "node --nolazy --inspect-brk=9229 ./src/index.js",
+    "deps-check": "npm-check --skip-unused",
+    "deps-update": "npm-check --update"
+  },
+  "dependencies": {
+    "@types/aws-sdk": "^2.7.0",
+    "aws-sdk": "^2.266.1",
+    "boom": "^7.2.0",
+    "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
+    "fastify": "^1.7.0",
+    "fastify-accepts": "^0.5.0",
+    "fastify-boom": "^0.1.0",
+    "fastify-caching": "^3.0.0",
+    "fastify-helmet": "^1.0.3",
+    "fastify-plugin": "^1.2.0",
+    "fastify-swagger": "^0.12.0",
+    "moment": "^2.22.2",
+    "pdfmake": "^0.1.37"
+  },
+  "devDependencies": {
+    "@types/boom": "^7.2.0",
+    "@types/dotenv": "^4.0.3",
+    "@types/eslint-plugin-prettier": "^2.2.0",
+    "@types/jest": "^23.1.3",
+    "@types/mockdate": "^2.0.0",
+    "@types/node": "^10.5.1",
+    "@types/prettier": "^1.13.1",
+    "danger": "^3.7.19",
+    "eslint": "^5.0.1",
+    "eslint-config-airbnb-base": "^13.0.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-array-func": "^3.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jest": "^21.17.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-optimize-regex": "^1.1.5",
+    "eslint-plugin-prettier": "^2.6.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-security": "^1.4.0",
+    "eslint-plugin-sql": "^1.1.1",
+    "eslint-plugin-unicorn": "^4.0.3",
+    "jest": "^23.2.0",
+    "jest-junit": "^5.1.0",
+    "mockdate": "^2.0.2",
+    "nsp": "^3.2.1",
+    "prettier": "^1.13.7",
+    "typescript": "^2.9.2"
+  },
+  "jest": {
+    "notify": false,
+    "browser": false,
+    "automock": false,
+    "resetMocks": true,
+    "clearMocks": true,
+    "resetModules": true,
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/routes/**/*.js",
+      "!src/schema/**/*.js"
+    ],
+    "coverageDirectory": "<rootDir>/coverage/jest",
+    "coverageReporters": [
+      "json-summary",
+      "json"
+    ],
+    "reporters": [
+      "default",
+      [
+        "jest-junit",
+        {
+          "suiteName": "jest tests"
+        }
+      ]
+    ]
+  },
+  "jest-junit": {
+    "suiteName": "jest tests",
+    "output": "./reports/junit/js-test-results.xml",
+    "classNameTemplate": "{classname}-{title}",
+    "titleTemplate": "{classname}-{title}",
+    "ancestorSeparator": " › ",
+    "usePathForSuiteName": "true"
+  }
+}
