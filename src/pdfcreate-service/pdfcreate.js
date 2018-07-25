@@ -167,7 +167,7 @@ const dateFormat = 'DD/MM/YYYY';
 //   },
 // };
 
-function createPdfBinary(pdfDoc, callback) {
+function createPdfBinary(pdfDoc, callback, error) {
   const fontDescriptors = {
     Roboto: {
       normal: path.join(__dirname, '../fonts/Roboto-Regular.ttf'),
@@ -191,6 +191,10 @@ function createPdfBinary(pdfDoc, callback) {
     result = Buffer.concat(chunks);
     callback(result);
   });
+  doc.on('error', (err) => {
+    error(err);
+  });
+
   doc.end();
 }
 

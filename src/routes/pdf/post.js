@@ -27,7 +27,7 @@ module.exports = (fastify, opts, next) => {
           .send(binary);
       },
       (error) => {
-        reply.code(500).send(`ERROR:${error}`);
+        reply.code(500).send('Something wrong!');
       },
     );
   });
