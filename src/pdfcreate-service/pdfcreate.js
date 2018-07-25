@@ -5,7 +5,7 @@ const moment = require('moment/min/moment-with-locales');
 moment.locale('it');
 const dateFormat = 'DD/MM/YYYY';
 
-// const body = {
+// const testbody = {
 //   regimeType: 'minimum',
 //   invoiceNumber: '007',
 //   fiscalYear: 2000,
@@ -28,7 +28,7 @@ const dateFormat = 'DD/MM/YYYY';
 //       houseNumber: '60/A',
 //       postalCode: '20089',
 //       city: 'Rozzano',
-//       province: 'MB',
+//       province: 'MI',
 //       country: 'Italia',
 //     },
 //   },
@@ -49,96 +49,108 @@ const dateFormat = 'DD/MM/YYYY';
 //     entries: [
 //       {
 //         name: 'row1',
-//         value: '8.424,00',
+//         value: 8424.0,
 //       },
 //       {
 //         name: 'row1',
-//         value: '7.330,71',
+//         value: 7330.71,
 //       },
 //       {
 //         name: 'row1',
-//         value: '4.847,60',
+//         value: 4847.6,
 //       },
 //       {
 //         name: 'row1',
-//         value: 212000.12121,
+//         value: 21200.12,
 //       },
 //       {
 //         name: 'row1',
-//         value: 212000.12121,
+//         value: 12000.12,
 //       },
 //       {
 //         name: 'row1',
-//         value: 212000.12121,
+//         value: 21200.12,
 //       },
 //       {
 //         name: 'row1',
-//         value: 212000.12121,
+//         value: 21200.12,
 //       },
 //       {
 //         name: 'row1',
-//         value: 212000.12121,
+//         value: 2120.12,
 //       },
 //       {
 //         name: 'row1',
-//         value: 212000.12121,
+//         value: 212000.12,
 //       },
 //       {
 //         name: 'row1',
-//         value: 212000.12121,
+//         value: 212000.12,
 //       },
 //       {
 //         name: 'row1',
-//         value: 212000.12121,
+//         value: 212000.12,
 //       },
 //       {
 //         name: 'row1',
-//         value: 212000.12121,
+//         value: 4847.6,
 //       },
 //       {
 //         name: 'row1',
-//         value: 212000.12121,
+//         value: 21200.12,
 //       },
 //       {
 //         name: 'row1',
-//         value: 212000.12121,
+//         value: 12000.12,
 //       },
 //       {
 //         name: 'row1',
-//         value: 212000.12121,
+//         value: 21200.12,
 //       },
 //       {
 //         name: 'row1',
-//         value: 212000.12121,
+//         value: 21200.12,
 //       },
 //       {
 //         name: 'row1',
-//         value: 212000.12121,
+//         value: 2120.12,
 //       },
 //       {
 //         name: 'row1',
-//         value: 212000.12121,
+//         value: 212000.12,
 //       },
 //       {
 //         name: 'row1',
-//         value: 212000.12121,
+//         value: 212000.12,
 //       },
 //       {
 //         name: 'row1',
-//         value: 212000.12121,
+//         value: 212000.12,
 //       },
 //       {
 //         name: 'row1',
-//         value: 212000.12121,
+//         value: 8424.0,
 //       },
 //       {
 //         name: 'row1',
-//         value: 212000.12121,
+//         value: 7330.71,
+//       },
+//       {
+//         name: 'row1',
+//         value: 4847.6,
+//       },
+//       {
+//         name: 'row1',
+//         value: 21200.12,
+//       },
+//       {
+//         name: 'row1',
+//         value: 12000.12,
 //       },
 //     ],
 //     total: {
-//       name: 'total without tax',
-//       value: '20.602,31',
+//       name: 'Total without tax',
+//       value: 20602.31,
 //     },
 //   },
 //   tax: {

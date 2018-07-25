@@ -10,6 +10,7 @@ module.exports = (fastify, opts, next) => {
   fastify.post('/', { schema }, (req, reply) => {
     const data = req.body;
     const docDefinition = getDocDefinition(data);
+    // console.log(docDefinition);
 
     createPdfBinary(
       docDefinition,
