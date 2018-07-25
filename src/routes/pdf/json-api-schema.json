@@ -117,7 +117,7 @@
               },
               "province": {
                 "type": "string",
-                "pattern": "/([A-Z]{2})/"
+                "pattern": "([A-Z]{2})"
               },
               "country": {
                 "type": "string"

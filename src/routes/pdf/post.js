@@ -7,18 +7,8 @@ moment.locale('it');
 const dateFormat = 'DD/MM/YYYY';
 
 module.exports = (fastify, opts, next) => {
-  fastify.post('/', (req, reply) => {
+  fastify.post('/', { schema }, (req, reply) => {
     const data = req.body;
-    // const body = req.body;
-    // console.log(schema.body.properties.recipient.properties.address.properties.province.pattern);
-
-    // const reg = new RegExp(schema.body.properties.recipient.properties.address.properties.province.pattern);
-    // console.log('MB'.match(reg));
-
-    // console.log(data.recipient.address.province);
-
-    // data = body;
-
     const docDefinition = getDocDefinition(data);
 
     createPdfBinary(
