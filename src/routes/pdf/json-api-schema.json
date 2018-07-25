@@ -1,0 +1,180 @@
+{
+  "body": {
+    "type": "object",
+    "properties": {
+      "regimeType": {
+        "type": "string",
+        "enum": ["ordinary", "minimum", "flat"]
+      },
+      "invoiceNumber": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "fiscalYear": {
+        "type": "integer",
+        "minimum": 2000,
+        "maximum": 2099
+      },
+      "emissionDate": {
+        "type": "string",
+        "description": "ISO6801 date"
+      },
+      "dueDate": {
+        "type": "string",
+        "description": "ISO6801 date"
+      },
+      "productivePeriodMonth": {
+        "type": "integer",
+        "minumum": 0,
+        "maximum": 12
+      },
+      "productivePeriodYear": {
+        "type": "integer",
+        "minumum": 2000,
+        "maximum": 2099
+      },
+      "total": {
+        "type": "number"
+      },
+      "payment": {
+        "type": "object",
+        "properties": {
+          "paymentCondition": {
+            "type": "string"
+          },
+          "bank": {
+            "type": "string"
+          }
+        }
+      },
+      "iban": {
+        "type": "string"
+      },
+      "recipient": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "vatNumber": {
+            "type": "string"
+          },
+          "fiscalCode": {
+            "type": "string"
+          },
+          "address": {
+            "type": "object",
+            "properties": {
+              "route": {
+                "type": "string"
+              },
+              "houseNumber": {
+                "type": "string"
+              },
+              "postalCode": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "province": {
+                "type": "string",
+                "pattern": "([A-Z]{2})"
+              },
+              "country": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "sender": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "vatNumber": {
+            "type": "string"
+          },
+          "fiscalCode": {
+            "type": "string"
+          },
+          "address": {
+            "type": "object",
+            "properties": {
+              "route": {
+                "type": "string"
+              },
+              "houseNumber": {
+                "type": "string"
+              },
+              "postalCode": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "province": {
+                "type": "string",
+                "pattern": "/([A-Z]{2})/"
+              },
+              "country": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "content": {
+        "type": "object",
+        "properties": {
+          "entries": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "total": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "value": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      },
+      "tax": {
+        "type": "object",
+        "properties": {
+          "entries": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
