@@ -307,7 +307,7 @@ function getEntities(data) {
       },
       {
         border: [false, false, false, data.content.entries.length > 1 && index === data.content.entries.length - 1],
-        text: `Euro ${it.value}`,
+        text: `Euro ${it.value.toLocaleString('EUR', { minimumFractionDigits: 2 })}`,
         aligment: 'right',
         width: '*',
         marginLeft: 70,
@@ -323,7 +323,7 @@ function getEntities(data) {
     },
     {
       border: [false, false, false, false],
-      text: `Euro ${data.content.total.value}`,
+      text: `Euro ${data.content.total.value.toLocaleString('EUR', { minimumFractionDigits: 2 })}`,
       aligment: 'right',
       width: '*',
       marginLeft: 70,
@@ -348,7 +348,7 @@ function getEntities(data) {
         aligment: 'left',
       },
       {
-        text: `Euro ${it.value}`,
+        text: `Euro ${it.value.toLocaleString('EUR', { minimumFractionDigits: 2 })}`,
         aligment: 'right',
         border: [false, false, false, data.tax.entries.length > 1 && index === data.tax.entries.length - 1],
         width: '*',
@@ -367,7 +367,7 @@ function getEntities(data) {
     {
       border: [false, false, false, false],
       bold: true,
-      text: `Euro ${data.total}`,
+      text: `Euro ${data.total.toLocaleString('EUR', { minimumFractionDigits: 2 })}`,
       marginLeft: 70,
     },
   ]);
