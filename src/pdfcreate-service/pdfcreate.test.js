@@ -37,6 +37,15 @@ describe('getDocDefinition', () => {
     });
   });
   test('Testing pdf files', async () => {
+    const fontDescriptors = {
+      Roboto: {
+        normal: path.join(__dirname, '../fonts/Roboto-Regular.ttf'),
+        bold: path.join(__dirname, '../fonts/Roboto-Medium.ttf'),
+        italics: path.join(__dirname, '../fonts/Roboto-Italic.ttf'),
+        bolditalics: path.join(__dirname, '../fonts/Roboto-MediumItalic.ttf'),
+      },
+    };
+
     const docDefinitions = getDocDefinition(testbody());
     const printer = new pdfMakePrinter(fontDescriptors);
     const doc = printer.createPdfKitDocument(docDefinitions);
