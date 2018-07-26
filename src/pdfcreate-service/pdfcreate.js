@@ -288,16 +288,6 @@ function getDescription(data) {
   );
 }
 
-function getDescription(data) {
-  return (
-    'Prestazione di servizi professionali in relazione all’intermediazione' +
-    `di prodotti assicurativi nel mese di ${moment()
-      .month(data.productivePeriodMonth)
-      .format('MMMM')
-      .toLowerCase()} ${data.productivePeriodYear}`
-  );
-}
-
 function getEntities(data) {
   const result = [];
   (data.content.entries || []).forEach((it, index) => {
@@ -305,14 +295,19 @@ function getEntities(data) {
       {
         border: [false, false, false, false],
         text: it.name,
-        aligment: 'left',
+        alignment: 'left',
       },
       {
         border: [false, false, false, data.content.entries.length > 1 && index === data.content.entries.length - 1],
-        text: `Euro ${formatEUR(it.value)}`,
-        aligment: 'right',
-        width: '*',
-        marginLeft: 70,
+        text: 'Euro',
+        alignment: 'left',
+        textAlign: 'left',
+      },
+      {
+        border: [false, false, false, data.content.entries.length > 1 && index === data.content.entries.length - 1],
+        text: formatEUR(it.value),
+        alignment: 'right',
+        textAlign: 'right',
       },
     ]);
   });
@@ -321,17 +316,26 @@ function getEntities(data) {
     {
       border: [false, false, false, false],
       text: data.content.total.name,
-      aligment: 'left',
+      alignment: 'left',
     },
     {
       border: [false, false, false, false],
-      text: `Euro ${formatEUR(data.content.total.value)}`,
-      aligment: 'right',
-      width: '*',
-      marginLeft: 70,
+      text: 'Euro',
+      alignment: 'left',
+      textAlign: 'left',
+    },
+    {
+      border: [false, false, false, false],
+      text: formatEUR(data.content.total.value),
+      alignment: 'right',
+      textAlign: 'right',
     },
   ]);
   result.push([
+    {
+      border: [false, false, false, false],
+      text: '',
+    },
     {
       border: [false, false, false, false],
       text: '',
@@ -347,14 +351,19 @@ function getEntities(data) {
       {
         border: [false, false, false, false],
         text: it.name,
-        aligment: 'left',
+        alignment: 'left',
       },
       {
-        text: `Euro ${formatEUR(it.value)}`,
-        aligment: 'right',
+        text: 'Euro',
+        alignment: 'left',
+        textAlign: 'left',
         border: [false, false, false, data.tax.entries.length > 1 && index === data.tax.entries.length - 1],
-        width: '*',
-        marginLeft: 70,
+      },
+      {
+        text: formatEUR(it.value),
+        alignment: 'right',
+        textAlign: 'right',
+        border: [false, false, false, data.tax.entries.length > 1 && index === data.tax.entries.length - 1],
       },
     ]);
   });
@@ -364,13 +373,21 @@ function getEntities(data) {
       border: [false, false],
       bold: true,
       text: 'Totale fattura',
-      aligment: 'left',
+      alignment: 'left',
     },
     {
       border: [false, false, false, false],
       bold: true,
-      text: `Euro ${formatEUR(data.total)}`,
-      marginLeft: 70,
+      alignment: 'left',
+      textAlign: 'left',
+      text: 'Euro',
+    },
+    {
+      border: [false, false, false, false],
+      bold: true,
+      text: formatEUR(data.total),
+      alignment: 'right',
+      textAlign: 'right',
     },
   ]);
 
@@ -394,10 +411,9 @@ function getDocDefinition(data) {
             [
               { text: ' ' },
               {
-                marginRight: 30,
                 textAlign: 'right',
                 alignment: 'right',
-                columns: [[...topHeaderBox(data.recipient || { address: {} })]],
+                columns: [[{ text: 'Spett.le' }, ...topHeaderBox(data.recipient || { address: {} })]],
               },
             ],
           ],
@@ -412,7 +428,7 @@ function getDocDefinition(data) {
         )}`,
       },
       { style: 'description', text: getDescription(data) },
-      { table: { widths: ['*', 200], body: [...getEntities(data)] } },
+      { table: { widths: ['*', 30, 'auto'], body: [...getEntities(data)] } },
       { style: 'sep', text: '' },
       ...getAfterRowsText(data),
       { style: 'sep', text: '' },
@@ -423,7 +439,7 @@ function getDocDefinition(data) {
       addressLast: { marginBottom: 6 },
       regime: { color: 'red', marginTop: 15, marginBottom: 15 },
       redText: { color: 'red' },
-      right: { aligment: 'right', textAlign: 'right' },
+      right: { alignment: 'right', textAlign: 'right' },
       invoice: { fontSize: 18, fontWeight: 900, marginBottom: 15 },
       description: { marginBottom: 30 },
       boldText: { fontWeight: 900 },

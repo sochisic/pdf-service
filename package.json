@@ -78,6 +78,8 @@
     "eslint-plugin-security": "^1.4.0",
     "eslint-plugin-sql": "^1.1.1",
     "eslint-plugin-unicorn": "^4.0.3",
+    "gm": "^1.23.1",
+    "imagemagick": "^0.1.3",
     "jest": "^23.2.0",
     "jest-junit": "^5.1.0",
     "mockdate": "^2.0.2",

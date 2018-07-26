@@ -11,6 +11,10 @@ module.exports = (fastify, opts, next) => {
     const data = req.body;
     const docDefinition = getDocDefinition(data);
 
+    doc = docDefinition.content;
+
+    console.log(doc[0]);
+
     createPdfBinary(
       docDefinition,
       (binary) => {
