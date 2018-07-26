@@ -1,7 +1,7 @@
 const pdfMakePrinter = require('pdfmake');
 const path = require('path');
 const fs = require('fs');
-const { getDocDefinition, createPdfBinary } = require('./pdfcreate');
+const { getDocDefinition } = require('./pdfcreate');
 const gm = require('gm');
 
 const pdfPath = path.join(__dirname, '__pdf-snapshots');
@@ -36,29 +36,27 @@ describe('getDocDefinition', () => {
       text: 'Banca d’appoggio:  Unicredit – Filiale di Cefalù – Piazza Garibaldi, 2',
     });
   });
+  test('Testing pdf files', async () => {
+    const docDefinitions = getDocDefinition(testbody());
+    const printer = new pdfMakePrinter(fontDescriptors);
+    const doc = printer.createPdfKitDocument(docDefinitions);
 
-  // console.log(gm.compare('./__pdf-snapshots/actual.pdf', './__pdf-snapshots/expected.pdf'));
+    await doc.pipe(fs.createWriteStream(path.join(__dirname, './__pdf-snapshots/actual.pdf'))).on('finish', () => {});
+    doc.end();
 
-  // const isPdfPageEqual = (a, aPage, b, bPage) =>
-  //   new Promise((resolve, reject) => {
-  //     gm.compare(
-  //       `${a}[${aPage}]`,
-  //       `${b}[${bPage}]`,
-  //       {
-  //         tolerance: 0,
-  //       },
-  //       (err, isEqual, equality) => {
-  //         if (err) {
-  //           reject(err);
-  //         }
+    const isPdfPageEqual = (a, aPage, b, bPage) =>
+      new Promise((resolve, reject) => {
+        gm.compare(`${a}[${aPage}]`, `${b}[${bPage}]`, { tolerance: 0 }, (err, isEqual, equality) => {
+          if (err) {
+            reject(err);
+          }
 
-  //         resolve(isEqual);
-  //       },
-  //     );
-  //   });
+          resolve(isEqual);
+        });
+      });
 
-  // return expect(await isPdfPageEqual(expectedFileName, 0, actualFileName, 0)).to.be.true;
-  // });
+    return expect(await isPdfPageEqual(expectedFileName, 0, actualFileName, 0)).toBe(true);
+  });
 });
 
 function testbody() {
