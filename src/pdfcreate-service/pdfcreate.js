@@ -2,6 +2,7 @@ const pdfMakePrinter = require('pdfmake');
 const path = require('path');
 const moment = require('moment/min/moment-with-locales');
 const formatEUR = require('../utils/formatEUR');
+const pad = require('../utils/pad');
 
 moment.locale('it');
 const dateFormat = 'DD/MM/YYYY';
@@ -360,7 +361,7 @@ function getEntities(data) {
 
   result.push([
     {
-      border: [false, false, false, false],
+      border: [false, false],
       bold: true,
       text: 'Totale fattura',
       aligment: 'left',
@@ -406,7 +407,9 @@ function getDocDefinition(data) {
       { style: 'regime', text: getRegimeText(data.regimeType || 'ordinary') },
       {
         style: 'invoice',
-        text: `${data.invoiceNumber} ${data.fiscalYear} del ${moment(data.emissionDate).format(dateFormat)}`,
+        text: `Fattura n. ${pad(data.invoiceNumber, 3)}/ ${data.fiscalYear} del ${moment(data.emissionDate).format(
+          dateFormat,
+        )}`,
       },
       { style: 'description', text: getDescription(data) },
       { table: { widths: ['*', 200], body: [...getEntities(data)] } },

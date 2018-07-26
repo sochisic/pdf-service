@@ -13,6 +13,14 @@ describe('formatEUR', () => {
     const num = 1200100.5;
     expect(formatEUR(num)).toEqual('1.200.100,50');
   });
+  test('should return proper value', () => {
+    const num = 1000;
+    expect(formatEUR(num)).toEqual('1.000,00');
+  });
+  test('should return proper value', () => {
+    const num = 1000.5;
+    expect(formatEUR(num)).toEqual('1.000,50');
+  });
   test('If NaN return without changes', () => {
     const num = '$ 1200100.50';
     expect(formatEUR(num)).toEqual('$ 1200100.50');
