@@ -1,6 +1,7 @@
 const pdfMakePrinter = require('pdfmake');
 const path = require('path');
 const moment = require('moment/min/moment-with-locales');
+const formatEUR = require('../utils/formatEUR');
 
 moment.locale('it');
 const dateFormat = 'DD/MM/YYYY';
@@ -307,7 +308,7 @@ function getEntities(data) {
       },
       {
         border: [false, false, false, data.content.entries.length > 1 && index === data.content.entries.length - 1],
-        text: `Euro ${it.value.toLocaleString('EUR', { minimumFractionDigits: 2 })}`,
+        text: `Euro ${formatEUR(it.value)}`,
         aligment: 'right',
         width: '*',
         marginLeft: 70,
@@ -323,7 +324,7 @@ function getEntities(data) {
     },
     {
       border: [false, false, false, false],
-      text: `Euro ${data.content.total.value.toLocaleString('EUR', { minimumFractionDigits: 2 })}`,
+      text: `Euro ${formatEUR(data.content.total.value)}`,
       aligment: 'right',
       width: '*',
       marginLeft: 70,
@@ -348,7 +349,7 @@ function getEntities(data) {
         aligment: 'left',
       },
       {
-        text: `Euro ${it.value.toLocaleString('EUR', { minimumFractionDigits: 2 })}`,
+        text: `Euro ${formatEUR(it.value)}`,
         aligment: 'right',
         border: [false, false, false, data.tax.entries.length > 1 && index === data.tax.entries.length - 1],
         width: '*',
@@ -367,7 +368,7 @@ function getEntities(data) {
     {
       border: [false, false, false, false],
       bold: true,
-      text: `Euro ${data.total.toLocaleString('EUR', { minimumFractionDigits: 2 })}`,
+      text: `Euro ${formatEUR(data.total)}`,
       marginLeft: 70,
     },
   ]);
