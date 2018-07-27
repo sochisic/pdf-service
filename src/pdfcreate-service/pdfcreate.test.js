@@ -19,30 +19,27 @@ describe('getDocDefinition', () => {
   test('contains proper object in content array', () => {
     const docDefinitions = getDocDefinition(testbody());
 
-    expect(docDefinitions.content).toHaveLength(15);
+    expect(docDefinitions.content).toHaveLength(14);
     expect(docDefinitions.content).toContainEqual({ style: 'invoice', text: 'Fattura n. 007/ 2018 del 20/07/2018' });
+    expect(docDefinitions.content).toContainEqual({ style: 'regime', text: '{{ REGIME FORFETTARIO }}' });
     expect(docDefinitions.content).toContainEqual({
+      style: 'invoice',
+      text: 'Fattura n. 007/ 2018 del 20/07/2018',
+    });
+    expect(docDefinitions.content).toContainEqual({
+      style: 'description',
       text:
-        'Compenso non assoggettato a ritenuta d’acconto ai sensi dell’art. 27 del D.L. n. 98 del 06.07.2011 Operazione effettuata da soggetto appartenente a regime fiscale di vantaggio per l’imprenditoria giovanile e per i lavoratori in mobilità ai sensi dell’art. 27, commi 1 e 2, del D.L. n. 98 del 06.07.2011 Imposta di bollo assolta sull’originale',
-    });
-    expect(docDefinitions.content).toContainEqual({ bold: true, text: 'Scadenza fattura:  20/07/2018' });
-    expect(docDefinitions.content).toContainEqual({ text: 'Codice IBAN: IT 23 T 02008 43260 000103943030' });
-    expect(docDefinitions.content).toContainEqual({ text: 'Condizioni di pagamento: pagamento a vista' });
-    expect(docDefinitions.content).toContainEqual({
-      style: 'redText',
-      text: ' {{ OBBLIGATORIA SE FATTURA SUPERA I 77,47€ }}',
-    });
-    expect(docDefinitions.content).toContainEqual({
-      text: 'Banca d’appoggio:  Unicredit – Filiale di Cefalù – Piazza Garibaldi, 2',
+        'Prestazione di servizi professionali in relazione all’inter mediazione di prodotti assicurativi nel mese di febbraio 2018.',
     });
   });
+
   test('Testing pdf files', async () => {
     const fontDescriptors = {
       Roboto: {
-        normal: path.join(__dirname, '../fonts/Roboto-Regular.ttf'),
-        bold: path.join(__dirname, '../fonts/Roboto-Medium.ttf'),
-        italics: path.join(__dirname, '../fonts/Roboto-Italic.ttf'),
-        bolditalics: path.join(__dirname, '../fonts/Roboto-MediumItalic.ttf'),
+        normal: path.join(__dirname, '../fonts/Lato-Light.ttf'),
+        bold: path.join(__dirname, '../fonts/Lato-Regular.ttf'),
+        italics: path.join(__dirname, '../fonts/Lato-Italic.ttf'),
+        bolditalics: path.join(__dirname, '../fonts/Lato-BoldItalic.ttf'),
       },
     };
 
@@ -59,7 +56,6 @@ describe('getDocDefinition', () => {
           if (err) {
             reject(err);
           }
-
           resolve(isEqual);
         });
       });
@@ -70,8 +66,8 @@ describe('getDocDefinition', () => {
 
 function testbody() {
   return {
-    regimeType: 'minimum',
-    invoiceNumber: 7,
+    regimeType: 'flat',
+    invoiceNumber: '007',
     fiscalYear: 2018,
     emissionDate: '2018-07-20T12:15:48.320Z',
     dueDate: '2018-07-20T12:15:48.320Z',
@@ -85,8 +81,8 @@ function testbody() {
     iban: 'IT 23 T 02008 43260 000103943030',
     recipient: {
       name: 'Tc Welfareconsulting s.r.l.',
-      vatNumber: 'P.IVA 09528651004',
-      fiscalCode: 'C.F. PZZNTN72H12E617O',
+      vatNumber: '09528651004',
+      fiscalCode: 'PZZNTN22H66E1111',
       address: {
         route: 'Via Monte Bianco',
         houseNumber: '60/A',
@@ -98,11 +94,11 @@ function testbody() {
     },
     sender: {
       name: 'Antonio Pizzardi',
-      vatNumber: 'P.IVA 03146970961',
+      vatNumber: '03146970961',
       fiscalCode: 'C.F. PZZNTN72H12E617O',
       address: {
         route: 'Via Carlo Cattaneo',
-        houseNumber: '60/A',
+        houseNumber: '6',
         postalCode: '20821',
         city: 'Meda',
         province: 'MB',
@@ -113,7 +109,7 @@ function testbody() {
       entries: [
         {
           name: 'Anticipo provvigionale',
-          value: 84000024,
+          value: 8424,
         },
         {
           name: 'Provvigioni maturate nel mese di gennaio 2018',
