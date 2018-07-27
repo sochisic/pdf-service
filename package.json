@@ -33,7 +33,6 @@
     "coverage": "LOG=fatal jest --coverage",
     "testing": "LOG=fatal jest --watch",
     "test": "LOG=fatal jest --coverage",
-    "test2": "jest --coverage",
     "start": "node ./src/index.js",
     "dev": "nodemon ./src/index.js",
     "debug": "node --nolazy --inspect-brk=9229 ./src/index.js",
