@@ -1,7 +1,7 @@
 const PdfMakePrinter = require('pdfmake');
 const path = require('path');
 const moment = require('moment/min/moment-with-locales');
-const formatEUR = require('../utils/formatEUR');
+const formatEUR = require('../utils/format-eur');
 const pad = require('../utils/pad');
 
 moment.locale('it');
@@ -222,9 +222,11 @@ function getAfterRowsText(data) {
           text: [
             {
               text:
-                ' Fattura esente IVA ex articolo 10, comma 1, n. 18, del D.P.R. n. 633 del 1972\n' +
-                ' Operazione effettuata ai sensi dell’art. 1, commi da 54 a 89 della Legge n. 190/2014 – Regime forfettario\n' +
-                ' Il compenso non è soggetto a ritenute d’acconto ex articolo 1, comma 67, della Legge n. 190 del 2014\n' +
+                'Fattura esente IVA ex articolo 10, comma 1, n. 18, del D.P.R. n. 633 del 1972\n' +
+                'Operazione effettuata ai sensi dell’art. 1, commi da 54 a 89 della Legge n. 190/2014 –' +
+                'Regime forfettario\n' +
+                'Il compenso non è soggetto a ritenute d’acconto ex articolo 1, comma 67, della Legge n. ' +
+                '190 del 2014\n' +
                 'Imposta di bollo assolta sull’originale',
             },
             { style: 'redText', text: ' {{ OBBLIGATORIA SE FATTURA SUPERA I 77,47€ }}' },
@@ -240,15 +242,19 @@ function getAfterRowsText(data) {
           text: [
             {
               text:
-                ' Compenso non assoggettato a ritenuta d’acconto ai sensi dell’art. 27 del D.L. n. 98 del 06.07.2011\n' +
-                ' Operazione effettuata da soggetto appartenente a regime fiscale di vantaggio per l’imprenditoria giova-\n' +
-                ' nile e per i lavoratori in mobilità ai sensi dell’art. 27, commi 1 e 2, del D.L. n. 98 del 06.07.2011\n' +
+                ' Compenso non assoggettato a ritenuta d’acconto ai sensi dell’art. 27 del D.L. n. 98 del 06.' +
+                '07.2011\n' +
+                ' Operazione effettuata da soggetto appartenente a regime fiscale di vantaggio per l’imprendi' +
+                'toria giova-\n' +
+                ' nile e per i lavoratori in mobilità ai sensi dell’art. 27, commi 1 e 2, del D.L. n. 98 del ' +
+                '06.07.2011\n' +
                 ' Imposta di bollo assolta sull’originale',
             },
             { style: 'redText', text: ' {{ OBBLIGATORIA SE FATTURA SUPERA I 77,47€ }}' },
           ],
         },
       ];
+
     case 'ordinary':
       return [
         {
@@ -273,22 +279,36 @@ function getAfterRowsText(data) {
 function topHeaderBoxSender(data) {
   const result = [];
 
-  data.name &&
+  if (data.name) {
     result.push({
       style: 'title',
       text: data.name,
     });
-  data.address.route &&
+  }
+
+  if (data.address.route) {
     result.push({
       text: `${data.address.route}, ${data.address.houseNumber}`,
     });
-  data.address.postalCode &&
+  }
+
+  if (data.address.postalCode) {
     result.push({
       text: `${data.address.postalCode} - ${data.address.city} (${data.address.province})`,
     });
-  data.address.country && result.push({ style: 'addressLast', text: data.address.country });
-  data.fiscalCode && result.push({ text: data.fiscalCode });
-  data.vatNumber && result.push({ text: `P.IVA ${data.vatNumber}` });
+  }
+
+  if (data.address.country) {
+    result.push({ style: 'addressLast', text: data.address.country });
+  }
+
+  if (data.fiscalCode) {
+    result.push({ text: data.fiscalCode });
+  }
+
+  if (data.vatNumber) {
+    result.push({ text: `P.IVA ${data.vatNumber}` });
+  }
 
   return result;
 }
@@ -296,21 +316,31 @@ function topHeaderBoxSender(data) {
 function topHeaderBoxRecipient(data) {
   const result = [];
 
-  data.name &&
+  if (data.name) {
     result.push({
       style: 'titleRecipient',
       text: data.name,
     });
-  data.address.route &&
+  }
+
+  if (data.address.route) {
     result.push({
       text: `${data.address.route}, ${data.address.houseNumber}`,
     });
-  data.address.postalCode &&
+  }
+
+  if (data.address.postalCode) {
     result.push({
       text: `${data.address.postalCode} - ${data.address.city} (${data.address.province})`,
     });
-  data.address.country && result.push({ style: 'addressLast', text: data.address.country });
-  data.vatNumber && data.fiscalCode && result.push({ text: `P.IVA e C.F. ${data.vatNumber} ${data.fiscalCode}` });
+  }
+  if (data.address.country) {
+    result.push({ style: 'addressLast', text: data.address.country });
+  }
+
+  if (data.vatNumber && data.fiscalCode) {
+    result.push({ text: `P.IVA e C.F. ${data.vatNumber} ${data.fiscalCode}` });
+  }
 
   return result;
 }
@@ -318,32 +348,42 @@ function topHeaderBoxRecipient(data) {
 function payment(data) {
   const result = [];
 
-  (data.payment || {}).paymentCondition &&
+  if (data.payment) {
     result.push({
       fontSize: 11,
       letterSpacing: 1.5,
       lineHeight: 1.3,
-      text: `Condizioni di pagamento: ${(data.payment || {}).paymentCondition}`,
+      text: `Condizioni di pagamento: ${data.payment.paymentCondition}`,
     });
-  (data.payment || {}).bank &&
+  }
+
+  if (data.payment.bank) {
     result.push({
       fontSize: 11,
       letterSpacing: 1.5,
       lineHeight: 1.3,
-      text: `Banca d’appoggio:  ${(data.payment || {}).bank}`,
+      text: `Banca d’appoggio:  ${data.payment.bank}`,
     });
-  data.iban && result.push({ fontSize: 11, letterSpacing: 1.5, lineHeight: 1.3, text: `Codice IBAN: ${data.iban}` });
+  }
+
+  if (data.iban) {
+    result.push({ fontSize: 11, letterSpacing: 1.5, lineHeight: 1.3, text: `Codice IBAN: ${data.iban}` });
+  }
+
   result.push({ text: ' ' });
-  data.dueDate &&
+  if (data.dueDate) {
     result.push({
       bold: true,
       letterSpacing: 1.65,
       fontSize: 11,
       text: `Scadenza fattura:  ${moment(data.dueDate).format(dateFormat)}`,
     });
+  }
 
   return result;
 }
+
+/* eslint-enable no-unused-expressions */
 
 function getDescription(data) {
   return (
@@ -526,7 +566,7 @@ function getDocDefinition(data) {
       boldText: { fontWeight: 900 },
       sep: { marginBottom: 30 },
     },
-    pageMargins: [58, 26, 58, 26],
+    pageMargins: [56, 26, 56, 26],
   };
 
   return result;

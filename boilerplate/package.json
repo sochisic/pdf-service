@@ -1,5 +1,5 @@
 {
-  "name": "prassi-api-gateway",
+  "name": "prassi-api-gateway-boilerplate",
   "version": "1.0.0-alpha.0",
   "description": "A minimal and fast 🐨  API gateway, based on Fastify",
   "repository": {

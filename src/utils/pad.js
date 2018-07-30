@@ -1,6 +1,6 @@
 function pad(num, size) {
-  if (isNaN(num)) return num;
-  if (isNaN(size)) return num;
+  if (Number.isNaN(+num)) return num;
+  if (Number.isNaN(+size)) return num;
   if (!size) return num;
 
   let s = `${num}`;

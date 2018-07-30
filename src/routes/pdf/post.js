@@ -1,6 +1,10 @@
 const moment = require('moment/min/moment-with-locales');
-const schema = require('./json-api-schema');
+const fs = require('fs');
+const path = require('path');
+// const schema = require('./json-api-schema.json');
 const { getDocDefinition, createPdfBinary } = require('../../pdfcreate-service/pdfcreate');
+
+const schema = JSON.parse(fs.readFileSync(path.join(__dirname, './json-api-schema.json'), 'utf8'));
 
 moment.locale('it');
 

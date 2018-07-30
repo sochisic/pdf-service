@@ -1,5 +1,5 @@
 function formatEUR(num) {
-  if (isNaN(num)) return num;
+  if (Number.isNaN(+num)) return num;
 
   const temp = num
     .toFixed(2)

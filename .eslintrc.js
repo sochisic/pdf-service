@@ -61,7 +61,7 @@ module.exports = {
     'node/no-unpublished-require': [
       'error',
       {
-        allowModules: ['mongo-mock', 'mockdate'],
+        allowModules: ['mongo-mock', 'mockdate', 'gm'],
       },
     ],
   },
