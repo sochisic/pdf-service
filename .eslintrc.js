@@ -33,6 +33,7 @@ module.exports = {
     'arrow-parens': ['error', 'always'],
     'operator-linebreak': 'off',
     'implicit-arrow-linebreak': 'off',
+    'security/detect-non-literal-fs-filename': 'off',
     'no-mixed-operators': [
       'error',
       {
