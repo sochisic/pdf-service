@@ -124,7 +124,7 @@ describe('getDocDefinition', () => {
     const printer = new PdfMakePrinter(fontDescriptors);
     const doc = printer.createPdfKitDocument(docDefinitions);
 
-    await doc.pipe(fs.createWriteStream(path.join(__dirname, './__pdf-snapshots/actual.pdf'))).on('finish', () => {});
+    await doc.pipe(fs.createWriteStream('./src/pdfcreate-service/__pdf-snapshots/actual.pdf')).on('finish', () => {});
     doc.end();
 
     const isPdfPageEqual = (a, aPage, b, bPage) =>
