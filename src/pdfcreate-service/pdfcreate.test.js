@@ -1,12 +1,12 @@
-// const PdfMakePrinter = require('pdfmake');
-// const gm = require('gm');
-// const path = require('path');
-// const fs = require('fs');
+const PdfMakePrinter = require('pdfmake');
+const gm = require('gm');
+const path = require('path');
+const fs = require('fs');
 const { getDocDefinition } = require('./pdfcreate');
 
-// const pdfPath = path.join(__dirname, '__pdf-snapshots');
-// const actualFileName = path.join(pdfPath, 'actual.pdf');
-// const expectedFileName = path.join(pdfPath, 'expected.pdf');
+const pdfPath = path.join(__dirname, '__pdf-snapshots');
+const actualFileName = path.join(pdfPath, 'actual.pdf');
+const expectedFileName = path.join(pdfPath, 'expected.pdf');
 
 function testbody() {
   return {
@@ -110,32 +110,34 @@ describe('getDocDefinition', () => {
     });
   });
 
-  // test('Testing pdf files', async () => {
-  //   const fontDescriptors = {
-  //     Roboto: {
-  //       normal: path.join(__dirname, '../fonts/Lato-Light.ttf'),
-  //       bold: path.join(__dirname, '../fonts/Lato-Regular.ttf'),
-  //       italics: path.join(__dirname, '../fonts/Lato-Italic.ttf'),
-  //       bolditalics: path.join(__dirname, '../fonts/Lato-BoldItalic.ttf'),
-  //     },
-  //   };
+  test('Testing pdf files', async () => {
+    const fontDescriptors = {
+      Roboto: {
+        normal: path.join(__dirname, '../fonts/Lato-Light.ttf'),
+        bold: path.join(__dirname, '../fonts/Lato-Regular.ttf'),
+        italics: path.join(__dirname, '../fonts/Lato-Italic.ttf'),
+        bolditalics: path.join(__dirname, '../fonts/Lato-BoldItalic.ttf'),
+      },
+    };
 
-  //   const docDefinitions = getDocDefinition(testbody());
-  //   const printer = new PdfMakePrinter(fontDescriptors);
-  //   const doc = printer.createPdfKitDocument(docDefinitions);
-  // await doc.pipe(fs.createWriteStream(
-  //  path.join(__dirname, './__pdf-snapshots/actual.pdf')
-  //  )).on('finish', () => {});
-  //   doc.end();
-  //   const isPdfPageEqual = (a, aPage, b, bPage) =>
-  //     new Promise((resolve, reject) => {
-  //       gm.compare(`${a}[${aPage}]`, `${b}[${bPage}]`, { tolerance: 0 }, (err, isEqual) => {
-  //         if (err) {
-  //           reject(err);
-  //         }
-  //         resolve(isEqual);
-  //       });
-  //     });
-  //   return expect(await isPdfPageEqual(expectedFileName, 0, actualFileName, 0)).toBe(true);
-  // });
+    const docDefinitions = getDocDefinition(testbody());
+    const printer = new PdfMakePrinter(fontDescriptors);
+    await new Promise((resolve) => {
+      const doc = printer.createPdfKitDocument(docDefinitions);
+      doc.pipe(fs.createWriteStream(actualFileName)).on('finish', () => {
+        resolve();
+      });
+      doc.end();
+    });
+    const isPdfPageEqual = (a, aPage, b, bPage) =>
+      new Promise((resolve, reject) => {
+        gm.compare(`${a}[${aPage}]`, `${b}[${bPage}]`, { tolerance: 0 }, (err, isEqual) => {
+          if (err) {
+            reject(err);
+          }
+          resolve(isEqual);
+        });
+      });
+    return expect(await isPdfPageEqual(expectedFileName, 0, actualFileName, 0)).toBe(true);
+  });
 });

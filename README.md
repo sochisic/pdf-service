@@ -47,6 +47,20 @@ It requires to install [npm-check](https://www.npmjs.com/package/npm-check).
 
 Before committing ensure everything is fine via `npm run qa`.
 
+for MAC
+
+brew install imagemagick
+brew install grapicsmagick
+brew install ghostscript
+
+and install
+
+If you don't know about Brew or MacPorts you should install Ghostscript by donwloading a .pkg installer, double clicking it and following the instructions.
+
+For Mac OS X you should get a Ghostscript installer from:
+
+http://www.uoregon.edu/~koch/
+
 ### SemVer
 
 This project follow [SemVer](https://semver.org/).
